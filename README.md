@@ -5,35 +5,36 @@
 This data analyst project focuses on evaluating and optimizing the operational performance of the PwC Call Center for the first quarter of 2021. Using a combination of Power BI dashboards and SQL-driven analysis, the project explores call volumes, agent performance, customer satisfaction, and key efficiency metrics to deliver actionable insights and recommendations for service improvement.
 
 ### Objectives
-- Quantify Call Center Workload and Efficiency: Measure total calls received, answered, and resolved, as well as average speed of answer and talk duration, to assess how effectively customer inquiries are managed.
-- Analyze Agent Performance: Compare individual agent workloads, answer and resolution rates, average talk durations, and satisfaction ratings to identify high performers and areas for targeted training.
-- Assess Customer Experience: Track and analyze customer satisfaction scores, examine their distribution, and evaluate the impact of wait times and call durations on satisfaction.
-- Identify Operational Patterns: Uncover daily, weekly, and hourly trends in call volume, as well as topic-wise distributions, to inform staffing and resource allocation decisions.
-- Benchmark Service Level Metrics: Monitor key indicators such as answer rate, resolution rate, and satisfaction against internal targets and industry standards.
-- Support Data-Driven Decision Making: Provide clear, evidence-based recommendations for improving call center processes, agent training, and customer service strategies using interactive visualizations and robust SQL analysis.
+- **Quantify Call Center Workload and Efficiency**: Measure total calls received, answered, and resolved, as well as average speed of answer and talk duration, to assess how effectively customer inquiries are managed.
+  
+- **Analyze Agent Performance**: Compare individual agent workloads, answer and resolution rates, average talk durations, and satisfaction ratings to identify high performers and areas for targeted training.
+  
+- **Assess Customer Experience**: Track and analyze customer satisfaction scores, examine their distribution, and evaluate the impact of wait times and call durations on satisfaction.
+  
+- **Identify Operational Patterns**: Uncover daily, weekly, and hourly trends in call volume, as well as topic-wise distributions, to inform staffing and resource allocation decisions.
+  
+- **Benchmark Service Level Metrics**: Monitor key indicators such as answer rate, resolution rate, and satisfaction against internal targets and industry standards.
+  
+- **Support Data-Driven Decision Making**: Provide clear, evidence-based recommendations for improving call center processes, agent training, and customer service strategies using interactive visualizations and robust SQL analysis.
 
 ## B. Data Sources
 
 **Primary Source:**  
-- [PwC Call Center Dataset](https://github.com/chauchau2203/Financial-Loan-Analysis/blob/main/financial_loan.csv) from [Forage PwC Job Simulator](https://www.theforage.com/simulations/pwc-ch/power-bi-cqxg?reloaded=true).
+- [PwC Call Center Dataset](https://github.com/chauchau2203/Call-Center-Analysis/blob/main/01%20Call-Center-Dataset.csv) from [Forage PwC Job Simulator](https://www.theforage.com/simulations/pwc-ch/power-bi-cqxg?reloaded=true).
+
+- The dataset contains detailed records of PwC call center operations for the period from January 1st to March 31st, 2021. It includes 5,000 calls, capturing information such as call date and time, agent handling the call, call topic, whether the call was answered or resolved, speed of answer, talk duration, and customer satisfaction rating.
 
 **Key Columns:**
-- `id`: Unique loan identifier
-- `loan_status`: Loan status (Fully Paid, Current, Charged Off)
-- `loan_amnt`: Requested loan amount
-- `funded_amnt`: Amount funded
-- `int_rate`: Interest rate
-- `installment`: Monthly payment
-- `grade`: Assigned loan grade
-- `emp_length`: Borrower’s employment length
-- `home_ownership`: Home ownership status
-- `annual_inc`: Borrower’s annual income
-- `verification_status`: Income verification status
-- `issue_d`: Loan issue date
-- `purpose`: Loan purpose
-- `addr_state`: Borrower’s state
-- `dti`: Debt-to-income ratio
-- `total_pymnt`: Total amount received to date
+- `Call Id`: Unique call identifier
+- `Agent`: Agent taking the call
+- `Date`: Date of the call
+- `Time`: Time of the call
+- `Topic`: Topic of the call
+- `Answered(Y/N)`: Whether the call was answered
+- `Resolved`: Whether the issue was resolved within the call
+- `Speed of answer in seconds`: Speed of answer in seconds
+- `AvgTalkDuration`: Talk duration of the call in minutes
+- `Satisfaction rating`: From 1 to 5 satisfaction rating
 
 ## C. Installation/Setup
 
@@ -43,7 +44,7 @@ This data analyst project focuses on evaluating and optimizing the operational p
 
 ### Setup 
 - Install Microsoft SQL Server 2025.
-- Import the financial loan dataset into SQL Server.
+- Import the PwC Call Center dataset into SQL Server.
 - Run the provided SQL script for data analysis and KPI calculations.
 - Connect Power BI to your SQL Server database.
 - Open the provided `.pbix` file for dashboards.
@@ -51,132 +52,164 @@ This data analyst project focuses on evaluating and optimizing the operational p
 
 ## D. Project Structure
 
-### 1. [Financial Loan Analysis.sql](https://github.com/chauchau2203/Financial-Loan-Analysis/blob/main/Financial%20Loan%20Analysis.sql)
+### 1. [PwC Call Center Analysis.sql](https://github.com/chauchau2203/Call-Center-Analysis/blob/main/PwC%20Call%20Center%20Analysis.sql)
 
-*SQL queries for data exploration, KPI calculations, and loan performance analysis.*
+*The SQL file conducts a comprehensive quantitative analysis of the PwC call center dataset, focusing on key operational and performance metrics.*
 
-**Portfolio-Level KPIs and Time-Based Metrics**
+- **Headline statistics**: the total number of answered and unanswered calls, average speed of answer (in seconds), average talk duration (in minutes), and average customer satisfaction rating.
 
-- Calculates total loan applications, total funded amounts, and total amount received from borrowers.
-- Provides month-to-date (MTD), previous month-to-date (PMTD), and overall figures for applications, funding, and repayments.
-- Computes average interest rate and average debt-to-income (DTI) ratio for the entire portfolio, as well as for current and previous months.
+- **Call volume patterns** by date, hour of day, and day of week, identifying trends in daily, hourly, and weekly call distribution to pinpoint peak periods and workload fluctuations.
 
-**Loan Quality and Risk Segmentation**
+- **Agent-level performance** is examined, including total calls handled, answered, resolved, and the calculated resolution rate for each agent, as well as their average talk time and satisfaction scores.
 
-- Classifies loans as "Good" (statuses: Fully Paid, Current) or "Bad" (status: Charged Off).
-- Calculates the percentage and count of good and bad loans.
-- Aggregates funded and collected amounts for both good and bad loan segments.
-- Supports KPI reporting on portfolio health and risk exposure.
+- **Segments calls** by wait time and call duration ranges, correlating these with average satisfaction to explore the impact of response and handling times on customer experience.
 
-**Status-Based and Grid Reporting**
+- **Topic-wise analysis** is performed, showing the distribution of calls across different topics, their percentage share, and resolution rates by topic to highlight operational strengths and weaknesses.
 
-- Breaks down key metrics (loan count, funded amount, amount received, interest rate, DTI) by loan status, enabling grid-style reporting for executive dashboards.
-- Provides MTD breakdowns by loan status for dynamic reporting needs.
+- **Monthly and weekly trend** analyses are included, summarizing total calls, average speed of answer, satisfaction ratings, and resolution rates over time to monitor performance stability and identify seasonal or periodic patterns.
 
-**Temporal Analysis**
+### 2. [PwC Call Center Dashboard.pbix](https://github.com/chauchau2203/Call-Center-Analysis/blob/main/PwC%20Call%20Center%20Dashboard.pbix)
 
-- Analyzes monthly trends in loan applications, funding, and repayments.
-- Outputs metrics by month number and month name, supporting time-series visualization and seasonality analysis.
+*Power BI file with dashboards: Overview and Trends, including DAX measures. The file provides a comprehensive, interactive overview of the PwC call center’s operations for Q1 2021, focusing on both high-level KPIs and detailed breakdowns by agent, call topic, time, and customer satisfaction.*
 
-**Regional and Demographic Analysis**
+![ecbd3bb2-f6cb-4c1e-9988-c066d1dbd52d](https://github.com/user-attachments/assets/3997fd87-d3a8-4a95-98ee-6268a76278d6)
 
-- Aggregates loan metrics by U.S. state, enabling regional performance assessment and identification of geographic disparities.
-- Summarizes metrics by loan term (e.g., 36 months, 60 months), employment length, loan purpose, and home ownership status, supporting multidimensional analysis and segmentation.
+![7c67b7ef-d734-4855-a07f-918b21fa23d7](https://github.com/user-attachments/assets/35dd7a0a-ade4-46ee-a42f-998912f9b014)
 
 
-### 2. [Financial Loan Dashboard.pbix](https://github.com/chauchau2203/Financial-Loan-Analysis/blob/main/Financial%20Loan%20Dashboard.pbix)
+- **Key Performance Indicators (KPIs)**: The dashboards highlight essential metrics such as total calls, calls answered/unanswered, calls resolved, average speed of answer, and average talk duration, offering a snapshot of overall call center efficiency.
 
-*Power BI file with dashboards: Summary, Overview, and Details, including DAX measures.*
+- **Call Distribution Analysis**: Visuals break down call volumes by topic (e.g., Streaming, Technical Support), day of week, and hour of day, helping to identify peak periods and inform staffing/resource allocation decisions.
 
-**Dashboard 1: Summary**
-- Total loan applications, MTD/PMTD tracking.
-- Funding and repayment analysis.
-- Average interest rate and DTI.
-- Good vs. Bad loan KPIs.
-- Loan status grid view.
-![d6404874-96d2-44bf-a680-a54abb361a21](https://github.com/user-attachments/assets/0ac80cf2-87c1-459a-8420-d62e3cf8c7d0)
+- **Agent Performance**: Agent-level tables and charts compare total calls handled, answer and resolution rates, average talk duration, and satisfaction scores, enabling identification of top performers and areas for targeted coaching.
 
+- **Customer Satisfaction**: The dashboards include average satisfaction gauges and bar charts showing the distribution of satisfaction ratings, as well as monthly trends, supporting analysis of customer experience and service quality over time.
 
-**Dashboard 2: Overview**
-- Monthly trends. 
-- Regional analysis by state. 
-- Loan term analysis. 
-- Employee length analysis. 
-- Loan purpose breakdown. 
-- Home ownership analysis. 
-![3d00f83d-741c-4a8a-9bd2-f6e6cce16f65](https://github.com/user-attachments/assets/66fd5bff-aefe-4c1f-8d53-0397e9ed916a)
+- **Resolution Effectiveness**: Donut and bar charts visualize the proportion of resolved versus unresolved calls, both overall and by agent/topic, highlighting operational strengths and improvement opportunities.
 
+- **Interactive Filtering**: Slicers for date, topic, and agent allow users to drill down into specific segments, making the dashboard adaptable for various analytical needs and stakeholder questions.
 
-**Dashboard 3: Details**
-- Data table for all key loan and borrower metrics.
-- Filterable, sortable interface for in-depth analysis.
-![92b648b7-0661-4ba7-9648-f20b8b4c35a6](https://github.com/user-attachments/assets/20863ddd-2d87-4e51-a8d4-88698972084a)
+- **Trend Monitoring**: Line charts and time-based tables track changes in satisfaction, resolution, and answer rates across weeks and months, supporting ongoing performance monitoring and strategic planning.
 
+### 3. [PwC Call Center Analysis Report.pdf](https://github.com/chauchau2203/Call-Center-Analysis/blob/main/PwC%20Call%20Center%20Analysis%20Report.pdf)
+
+- The report PDF provides a **comprehensive analysis** of the PwC call center’s operations for Q1 2021, using interactive Power BI dashboards and SQL-based data exploration.
+
+- It summarizes **key performance indicators** such as total calls, answer rates, resolution rates, average speed of answer, talk duration, and customer satisfaction.
+
+- The report includes **visualizations and tables** that break down call volumes by topic, day, hour, and agent, highlighting workload patterns and peak periods.
+
+- **Agent performance** is compared across multiple metrics, including calls handled, answer and resolution rates, and satisfaction scores, to identify strengths and areas for improvement.
+
+- **Customer satisfaction trends** are analyzed over time and by different call characteristics, supporting recommendations for enhancing the customer experience.
+
+- The document concludes with **actionable recommendations**, and improvement strategies to guide ongoing operational excellence and data-driven decision-making.
 
 ## E. Analysis and Results
 
-### Overall Portfolio Performance
-The loan portfolio demonstrates **strong performance** with 38,576 total loan applications and a healthy funding-to-recovery ratio. The bank has **funded $435.76M** while **receiving $473.07M** in repayments, indicating a positive return of approximately **8.6%** above the funded amount. This suggests effective loan management and collection processes.
+### **Basic Performance Metrics Analysis**
+- Key performance indicators including 4,054 answered calls versus 946 unanswered calls, resulting in an 81.1% answer rate. - Average speed of answer was measured at 67 seconds, with an average talk duration of 3.75 minutes and overall customer satisfaction of 3.0 on a 5-point scale.
 
-### Risk Profile and Loan Quality
-**Good vs Bad Loan Distribution:**
-- The portfolio shows excellent loan quality with **86.2% classified as "Good Loans"** (Fully Paid + Current status) versus only **13.8% as "Bad Loans"** (Charged Off). This indicates strong underwriting standards and borrower selection criteria.
+### **Temporal Pattern Analysis**
+**Daily Call Volume Trends**
+- The analysis examined daily call patterns, showing call volumes ranging from 48 to 84 calls per day. Specific dates like - January 11th showed peak activity with 84 calls, while January 8th had the lowest volume with 48 calls.
 
-**Financial Impact Analysis:**
+**Hourly Distribution Analysis**
+- Call volume by hour revealed peak periods, with 11:00 AM showing 590 calls and 1:00 PM showing 594 calls - the highest - volumes of the day. The analysis covered hours 9-16, identifying optimal staffing periods.
 
-- **Good loans** generated $435.79M in collections from $370.22M funded (**17.7% return**).
-- **Bad loans** only recovered $37.28M from $65.53M funded (**43.1% loss rate**).
-- The overall portfolio benefits significantly from the high proportion of good loans.
+**Weekly Pattern Recognition**
+- Day-of-week analysis showed Monday (770 calls) and Saturday (768 calls) as the highest volume days, while Sunday (716 calls) and Tuesday (675 calls) showed lower activity.
 
-### Temporal and Seasonal Trends
-The monthly trend analysis reveals **consistent growth** throughout the year, with applications increasing from approximately 2.3K in January to 4.3K in December. This **87% growth** suggests either business expansion, increased market demand, or successful marketing campaigns. The steady upward trajectory indicates healthy business momentum.
+### **Agent Performance Evaluation**
+**Individual Agent Metrics**
+- The analysis provided comprehensive agent performance data, showing Jim handled the most calls (666 total, 536 answered) with a 90.49% resolution rate. Stewart had the fewest calls (582 total, 477 answered) but maintained an 88.89% resolution rate.
 
-### Geographic Distribution and Market Penetration
-The state-wise distribution shows concentrated activity in larger population states, with certain regions displaying higher loan volumes. This geographic concentration may indicate market saturation opportunities in underserved states or successful regional strategies that could be replicated.
+**Talk Time and Satisfaction Analysis**
+- Agent efficiency was measured through average talk time (ranging from 3.65 to 3.85 minutes) and individual satisfaction ratings, though all agents showed a uniform satisfaction score of 3.0 in this dataset.
 
-### Borrower Demographics and Employment Patterns
-Employment Length Insights:
+### **Customer Experience Analysis**
+**Wait Time Impact Assessment**
+- The analysis examined correlation between wait times and satisfaction across four ranges: 0-30 seconds (751 calls), 31-60 seconds (1,045 calls), 61-90 seconds (1,026 calls), and over 90 seconds (1,232 calls). Interestingly, all wait time ranges showed identical average satisfaction of 3.0, indicating no direct correlation.
 
-- Borrowers with **10+ years** of employment represent the **largest segment** (8.9K applications).
-- Shorter tenure employees **(1-2 years**) show **significant representation** (4.6K and 4.4K respectively).
-- This distribution suggests the bank successfully serves both established and emerging professionals.
+**Call Duration Impact Analysis**
+- Similar analysis was performed for call duration ranges: 0-2 minutes (895 calls), 2-4 minutes (1,264 calls), 4-6 minutes (1,287 calls), and over 6 minutes (608 calls). Again, all duration ranges showed consistent 3.0 satisfaction ratings.
 
-### Loan Purpose and Financial Behavior
-Debt Consolidation Dominance:
-The purpose analysis reveals **debt consolidation as the primary driver** (~18K applications), followed by **credit card refinancing** (~5K). This indicates customers are actively managing their debt obligations and seeking better terms, suggesting a financially conscious customer base.
+### **Topic-Based Performance Analysis**
+**Call Distribution by Topic**
+- The  analysis revealed balanced topic distribution: Streaming (1,022 calls, 20.44%), Technical Support (1,019 calls, 20.38%), Payment Related (1,007 calls, 20.14%), Admin Support (976 calls, 19.52%), and Contract Related (976 calls, 19.52%).
 
-### Term Structure and Risk Management
-The loan term distribution shows **73.2% are 60-month loans** (28.2K) versus **26.8% for 36-month loans** (10.3K). This preference for longer terms may indicate:
-- Customer preference for lower monthly payments.
-- Bank strategy to extend interest income duration.
-- Potential higher risk exposure due to longer repayment periods.
+**Resolution Rate by Topic**
+- Topic-specific resolution analysis showed Technical Support achieving the highest resolution rate at 91.43% (736 resolved out of 805 answered calls), while Streaming had the lowest at 88.43% (749 resolved out of 847 answered calls).
 
-### Home Ownership and Stability Indicators
-The home ownership analysis shows a relatively balanced distribution between renters, mortgage holders, and homeowners. This diversity suggests the bank serves various economic segments, though the specific proportions could indicate target market focus areas.
+### **Trend Analysis**
+**Monthly Performance Tracking**
+- The analysis tracked monthly trends showing January had 1,772 calls, February had 1,616 calls, and March had 1,612 calls. - All months maintained consistent 67-second average speed of answer and 3.0 satisfaction ratings, with resolution rates varying slightly (90.10%, 89.45%, and 90.24% respectively).
 
-### Interest Rate and DTI Analysis
-With an **average interest rate of 12.05%** and **average DTI of 13.33%**, the portfolio reflects **moderate risk pricing**. The month-over-month changes (+3.47% interest rate, +2.73% DTI) suggest either tightening credit conditions or shifts in borrower profile.
+**Weekly Performance Monitoring**
+- Week-over-week analysis covered weeks 7-14 of 2021, showing call volumes ranging from 150 to 426 calls per week, with corresponding answered call rates and consistent satisfaction scores of 3.0 across all weeks.
 
-### Key Performance Indicators by Loan Status
-The detailed breakdown shows Current loans have the highest interest rate (15.10%) while Fully Paid loans average 11.64%. This suggests:
-- Higher risk pricing for ongoing loans.
-- Successful completion of lower-rate loans.
-- Potential correlation between interest rates and repayment success.
+## F. Recommendations
 
-## F. Future Work Extension and Improvement
+### Optimize Staffing and Resource Allocation
+**Call Volume Management:**
+- Redistribute agent schedules to increase coverage during peak hours (11:00 and 13:00) where data shows 590 and 594 calls respectively.
+- Implement a flexible staffing model for high-volume days (Monday and Saturday) which together account for 31% of weekly call volume.
+- Consider implementing a callback system during periods of high call volume to reduce the 18.92% unanswered call rate.
 
-- **Real-time Data Integration:** Automate data pipelines for real-time monitoring.
-- **Advanced Analytics:** Integrate machine learning for default prediction.
-- **Mobile Dashboard:** Enable Power BI mobile access.
-- **Risk Modeling:** Build credit risk assessment models.
-- **Cohort & Predictive Analysis:** Add borrower cohort tracking and forecasting.
-- **Regulatory Reporting:** Expand for compliance and regulatory needs.
-- **Visualization Enhancements:** Add drill-downs, alerts, and custom KPI tracking.
-- **Data Quality:** Improve validation and integrate external economic data.
+**Response Time Improvement:**
+- Set a target to reduce the average speed of answer from 67.5 seconds to under 45 seconds, as industry benchmarks suggest this would improve first-call resolution.
+- Develop streamlined processes for common inquiries to reduce the 30.5% of calls exceeding 90-second wait times.
 
-## G. License
+### Enhance Agent Training and Performance
+**Skill Development:**
+- Create specialized training modules for streaming-related queries, which show the lowest resolution rate (88.43%)
+- Establish knowledge-sharing sessions where high-performing agents (Greg and Jim with 90.64% and 90.49% resolution rates) can share best practices
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+**Quality Improvement:**
+- Implement targeted coaching for agents with lower satisfaction scores, particularly Joe (3.33) and Becky (3.37)
+- Develop agent-specific training based on individual performance patterns in the data, focusing on both technical skills and customer interaction
+
+**Workload Balancing:**
+- Review call allocation to ensure more equitable distribution between agents (current range: 582-666 calls per agent)
+- Calibrate performance expectations based on call complexity by topic, as resolution rates vary by 3% between topics
+
+### Improve Customer Experience
+**Satisfaction Enhancement:**
+- Investigate the declining satisfaction trend (3.45 → 3.37) from January to March to identify root causes.
+- Create targeted interventions to move customers from the predominant 3-4 satisfaction range to the 4-5 range.
+- Implement post-call surveys to gather more qualitative feedback on specific areas of dissatisfaction
+
+**Service Level Agreements:**
+Establish clear SLAs for different call types, with specific targets for:
+- Maximum wait times (currently 30.5% of calls wait over 90 seconds).
+- Resolution percentages (target above 95% for all topic categories).
+- First-call resolution rate (target improvement of current 90% rate).
+
+### Process and System Optimization
+**Call Handling Procedures:**
+- Review protocols for all topics to standardize best practices, particularly focusing on Technical Support which shows the highest resolution rate.
+- Implement decision trees and knowledge base systems for common issues to reduce average call duration (currently 3:45).
+
+**Technology Enhancements:**
+- Deploy AI-powered call routing to direct customers to agents with highest resolution rates for specific topics.
+- Implement predictive analytics to forecast call volumes based on historical patterns and schedule staff accordingly.
+- Develop self-service options for routine inquiries (particularly for Admin Support and Contract-related issues) to reduce overall call volume.
+  
+
+## G. Future Work Extension and Improvement
+
+- **Integrate additional data sources** such as customer feedback text, chat logs, or CRM data to enrich analysis and provide deeper customer insights.
+  
+- **Automate data refresh and dashboard updates** using scheduled data pipelines to ensure real-time monitoring and reporting.
+
+- **Expand analysis to include predictive modeling** (e.g., forecasting call volumes, predicting satisfaction) and advanced analytics (e.g., sentiment analysis).
+
+- **Develop more granular agent performance metrics**, such as first-call resolution rates, escalation rates, and training impact assessments.
+
+- **Implement drill-down and drill-through features** in Power BI for more interactive, user-driven exploration of call center data.
+
+- **Benchmark PwC call center metrics** against industry standards or competitors to identify further opportunities for operational improvement.
+
 
 ---
 
